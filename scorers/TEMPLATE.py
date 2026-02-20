@@ -100,6 +100,15 @@ def main():
     print(f"Avg Lead Score: {results_df['Lead Score'].mean():.1f}")
     print(f"Results saved to: {output_file}")
 
+    # ===== VELOCITY TRACKING =====
+    # Update these per scoring run:
+    CONFERENCE_KEY = "your_conference_key"        # e.g. "gdc_sf_26"
+    VERSION_LABEL = "v1 (your description)"       # e.g. "v1 (LISN + MTM Scrape 1)"
+
+    from engine.velocity import record_iteration, format_velocity_report
+    record_iteration(CONFERENCE_KEY, results_df, VERSION_LABEL)
+    print("\n" + format_velocity_report(CONFERENCE_KEY, format="text"))
+
 
 if __name__ == "__main__":
     main()

@@ -118,6 +118,13 @@ def main():
 
     print(f"\nResults saved to: {output_file}")
 
+    # Record velocity tracking
+    from engine.velocity import record_iteration, format_velocity_report
+
+    version_label = "v3 (Scrape 3 + LISN)"  # UPDATE THIS each scoring run
+    record_iteration("gdc_sf_26", results_df, version_label)
+    print("\n" + format_velocity_report("gdc_sf_26", format="text"))
+
 
 if __name__ == "__main__":
     main()

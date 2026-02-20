@@ -32,6 +32,24 @@ python -m scorers.your_conference
 
 See `scorers/gdc_sf_26.py` for a working example.
 
+### Signal Velocity Tracking
+
+Each scoring run automatically records iteration stats. To view:
+
+```bash
+# View velocity report for a conference
+python -m engine.velocity --conference gdc_sf_26
+
+# Markdown format (for sharing)
+python -m engine.velocity --conference gdc_sf_26 --format markdown
+```
+
+The scorer records velocity automatically. Stats tracked per iteration:
+- Total people, new people vs prior iteration
+- Company match count and rate
+- Lead score distribution (tiers: 60+, 40-59, 20-39, 10-19, <10)
+- Mean/median lead score trend
+
 ## Architecture Overview
 
 ```
@@ -42,11 +60,13 @@ engine/          Core scoring logic (stateless, importable)
   normalize.py   Name normalization, fuzzy matching, min-max
   config.py      Load scoring config from JSON / Google Sheets
   master.py      Build master people list from all scored files
+  velocity.py    Conference signal velocity tracking (iteration-over-iteration metrics)
 
 store/           Canonical entity data (committed to git)
   companies.csv  11K+ scored companies
-  people.csv     4K+ scored people (master list)
+  people.csv     8K+ scored people (master list)
   baselines/     Normalization ranges for absolute scoring
+  velocity/      Per-conference velocity logs (JSON, auto-generated)
 
 scorers/         Per-conference scoring scripts
   TEMPLATE.py    Copy this for new conferences

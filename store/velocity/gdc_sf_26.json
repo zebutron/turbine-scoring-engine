@@ -1,0 +1,113 @@
+[
+  {
+    "version": "v1 (LISN + MTM Scrape 1)",
+    "timestamp": "2026-02-13 00:00:00",
+    "total_people": 1835,
+    "company_matched": 350,
+    "company_match_rate": 19.1,
+    "sources": {
+      "LISN": 1487,
+      "v1 MTM - GDC SF 2026": 348
+    },
+    "lead_score": {
+      "min": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "tier_manual_90plus": 0,
+      "tier_high_60plus": 0,
+      "tier_mid_40_59": 0,
+      "tier_auto_20_39": 0,
+      "tier_low_10_19": 0,
+      "tier_noise_below_10": 0
+    },
+    "contact_score": {
+      "mean": null,
+      "median": null
+    },
+    "company_score": {
+      "mean": null,
+      "median": null
+    },
+    "delta": null,
+    "_note": "Reconstructed from context. Score distribution not available for v1."
+  },
+  {
+    "version": "v2 (LISN + MTM Scrapes 1-2)",
+    "timestamp": "2026-02-18 00:00:00",
+    "total_people": 2263,
+    "company_matched": 413,
+    "company_match_rate": 18.2,
+    "sources": {
+      "v1 LISN": 1487,
+      "v2 MTM - GDC SF 2026": 429,
+      "v1 M2M - GDC SF 2026": 348
+    },
+    "lead_score": {
+      "min": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "tier_manual_90plus": 0,
+      "tier_high_60plus": 0,
+      "tier_mid_40_59": 0,
+      "tier_auto_20_39": 0,
+      "tier_low_10_19": 0,
+      "tier_noise_below_10": 0
+    },
+    "contact_score": {
+      "mean": null,
+      "median": null
+    },
+    "company_score": {
+      "mean": null,
+      "median": null
+    },
+    "delta": {
+      "new_people": 428,
+      "new_matched": 63,
+      "match_rate_change": -0.9,
+      "mean_lead_score_change": 0,
+      "previous_version": "v1 (LISN + MTM Scrape 1)"
+    },
+    "_note": "Reconstructed from context. Score distribution not available for v2."
+  },
+  {
+    "version": "v3 (Scrape 3 + LISN)",
+    "timestamp": "2026-02-20 20:48:57",
+    "total_people": 2452,
+    "company_matched": 495,
+    "company_match_rate": 20.2,
+    "sources": {
+      "v1 LISN -   SF 2026 (Last Name)": 1385,
+      "M2M - GDC SF - 2026 - Scrape 3": 1067
+    },
+    "lead_score": {
+      "min": 0.0,
+      "max": 63.0,
+      "mean": 8.4,
+      "median": 5.0,
+      "tier_manual_90plus": 0,
+      "tier_high_60plus": 2,
+      "tier_mid_40_59": 17,
+      "tier_auto_20_39": 475,
+      "tier_low_10_19": 399,
+      "tier_noise_below_10": 1559
+    },
+    "contact_score": {
+      "mean": 27.2,
+      "median": 14.0
+    },
+    "company_score": {
+      "mean": 27.8,
+      "median": 17.0
+    },
+    "delta": {
+      "new_people": 189,
+      "new_matched": 82,
+      "match_rate_change": 2.0,
+      "mean_lead_score_change": 8.4,
+      "previous_version": "v2 (LISN + MTM Scrapes 1-2)"
+    }
+  }
+]
