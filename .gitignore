@@ -1,0 +1,33 @@
+# Environment
+.env
+venv/
+.venv/
+
+# Ephemeral I/O
+sources/*
+!sources/.gitkeep
+output/*
+!output/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# People cache (regenerated at runtime)
+store/people_cache.csv
+
+# Config archives
+configs/archive/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

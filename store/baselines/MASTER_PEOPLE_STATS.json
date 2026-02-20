@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-02-07 00:00:05",
+  "lead_score_min": 0.0,
+  "lead_score_max": 100.0,
+  "contact_score_min": 0.0,
+  "contact_score_max": 100.0,
+  "source_lists": [
+    "engine/scored_lists/MASTER_PEOPLE_LIST.csv",
+    "engine/scored_lists/PEOPLE_SCORES_2025-11-06.csv",
+    "engine/scored_lists/PEOPLE_SCORES_LA_2025-11-06.csv",
+    "engine/scored_lists/PEOPLE_SCORES_PGC_LONDON_2026-01-05.csv",
+    "output/people/DICE_LAS_VEGAS_26_Scored_People_2026-01-29.tsv",
+    "output/people/MAU LV People - Matched & Scored.csv",
+    "output/people/MAU Vegas MM v3 - Scored People.csv",
+    "output/people/MAU Vegas Matchmaking - Scored People.csv",
+    "output/people/PGC Barc '25 - Scored People v3.csv",
+    "output/people/Scored People - GamesBeat LA '25.csv",
+    "output/people/Scored_People(PGC_Dubai_M2M_v5).csv",
+    "output/people/Scored_People(PGC_Dubai_v5).csv"
+  ]
+}

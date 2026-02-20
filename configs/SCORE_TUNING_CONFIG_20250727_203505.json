@@ -1,0 +1,991 @@
+{
+  "companyScore": {
+    "pillars": {
+      "Score Pillar": {
+        "weight": "Averaging Weights",
+        "description": "Descrip",
+        "components": {}
+      },
+      "Alignment": {
+        "weight": 100,
+        "description": "The company operates in our domain of expertise.",
+        "components": {
+          "Dev": {
+            "Pillar": "Alignment",
+            "Components": "Dev",
+            "Max Points": 10,
+            "Description": "Makes games.",
+            "Scale Factor": "Portfolio size percentile rank across companies."
+          },
+          "F2P": {
+            "Pillar": "Alignment",
+            "Components": "F2P",
+            "Max Points": 8,
+            "Description": "Has F2P games.",
+            "Scale Factor": "Percent of portfolio."
+          },
+          "Mobile": {
+            "Pillar": "Alignment",
+            "Components": "Mobile",
+            "Max Points": 7,
+            "Description": "Has mobile games.",
+            "Scale Factor": "Percent of portfolio."
+          },
+          "Fresh": {
+            "Pillar": "Alignment",
+            "Components": "Fresh",
+            "Max Points": 5,
+            "Description": "Has new products.",
+            "Scale Factor": "Percent of portfolio."
+          }
+        }
+      },
+      "Budget": {
+        "weight": 60,
+        "description": "The company can afford our services.",
+        "components": {
+          "Revenue": {
+            "Pillar": "Budget",
+            "Components": "Revenue",
+            "Max Points": 10,
+            "Description": "Has revenue.",
+            "Scale Factor": "Percentile rank across companies."
+          },
+          "Funding": {
+            "Pillar": "Budget",
+            "Components": "Funding",
+            "Max Points": 8,
+            "Description": "Has Funding.",
+            "Scale Factor": "Percentile rank across companies."
+          },
+          "Headcount": {
+            "Pillar": "Budget",
+            "Components": "Headcount",
+            "Max Points": 5,
+            "Description": "Has employees.",
+            "Scale Factor": "Percentile rank across companies."
+          }
+        }
+      },
+      "Demand": {
+        "weight": 40,
+        "description": "The company needs our services, or has expressed interest in them.",
+        "components": {
+          "Status": {
+            "Pillar": "Demand",
+            "Components": "Status",
+            "Max Points": 10,
+            "Description": "Status in sales funnel",
+            "Scale Factor": "Each status change has a half-life."
+          },
+          "Volatility": {
+            "Pillar": "Demand",
+            "Components": "Volatility",
+            "Max Points": 7,
+            "Description": "In rev, funding, headcount",
+            "Scale Factor": "Weighted average of component percentile ranks."
+          },
+          "- Revenue \u2206": {
+            "Pillar": "Demand",
+            "Components": "- Revenue \u2206",
+            "Max Points": 5,
+            "Description": "% change QoQ",
+            "Scale Factor": "Percentile rank across companies."
+          },
+          "- Runway \u2206": {
+            "Pillar": "Demand",
+            "Components": "- Runway \u2206",
+            "Max Points": 4,
+            "Description": "Latest funding size and recency.",
+            "Scale Factor": "Percentile rank across companies."
+          },
+          "- Headcount \u2206": {
+            "Pillar": "Demand",
+            "Components": "- Headcount \u2206",
+            "Max Points": 3,
+            "Description": "% change QoQ",
+            "Scale Factor": "Percentile rank across companies."
+          },
+          "Hiring": {
+            "Pillar": "Demand",
+            "Components": "Hiring",
+            "Max Points": 5,
+            "Description": "Product role job listing.",
+            "Scale Factor": "Half-life 3 months."
+          }
+        }
+      }
+    }
+  },
+  "peopleScore": {
+    "pillars": {
+      "Contact Score Pillars": {
+        "weight": "",
+        "description": "Averaging Weights",
+        "components": {}
+      },
+      "Seniority": {
+        "weight": "",
+        "description": 100,
+        "components": {
+          "CEO": {
+            "Pillar": "Seniority",
+            "Label": "CEO",
+            "Keywords to Match": "Chief Executive Officer, CEO, Founder, Owner",
+            "Score": 100,
+            "Notes": "Top-level leaders converge at 100 for both Seniority and Domain."
+          },
+          "CXO": {
+            "Pillar": "Seniority",
+            "Label": "CXO",
+            "Keywords to Match": "CXO, Chief, Officer, Co-Founder, COO, CFO, CTO, CMO, CPO, Chief Operating Officer, Chief Financial Officer, Chief Technology Officer, Chief Marketing Officer, Chief Product Officer",
+            "Score": 95,
+            "Notes": ""
+          },
+          "SVP": {
+            "Pillar": "Seniority",
+            "Label": "SVP",
+            "Keywords to Match": "Senior Vice President, SVP, EVP",
+            "Score": 85,
+            "Notes": ""
+          },
+          "VP": {
+            "Pillar": "Seniority",
+            "Label": "VP",
+            "Keywords to Match": "Vice President, VP",
+            "Score": 80,
+            "Notes": ""
+          },
+          "Dir": {
+            "Pillar": "Seniority",
+            "Label": "Dir",
+            "Keywords to Match": "Director, Dir.",
+            "Score": 70,
+            "Notes": ""
+          },
+          "Head": {
+            "Pillar": "Seniority",
+            "Label": "Head",
+            "Keywords to Match": "Head",
+            "Score": 70,
+            "Notes": ""
+          },
+          "Mgr": {
+            "Pillar": "Seniority",
+            "Label": "Mgr",
+            "Keywords to Match": "Manager, Man, Mgr, Supervisor",
+            "Score": 30,
+            "Notes": ""
+          },
+          "Lead": {
+            "Pillar": "Seniority",
+            "Label": "Lead",
+            "Keywords to Match": "Lead",
+            "Score": 25,
+            "Notes": ""
+          },
+          "Principle": {
+            "Pillar": "Seniority",
+            "Label": "Principle",
+            "Keywords to Match": "Principle",
+            "Score": 15,
+            "Notes": ""
+          },
+          "Sr": {
+            "Pillar": "Seniority",
+            "Label": "Sr",
+            "Keywords to Match": "Sr, Sen., Senior",
+            "Score": "+10",
+            "Notes": "When prefixed to another valid title, adds +10 to Seniority"
+          },
+          "Jr": {
+            "Pillar": "Seniority",
+            "Label": "Jr",
+            "Keywords to Match": "Jr, Jun., Junior, Associate, Assistant",
+            "Score": "-15",
+            "Notes": "When prefixed to another valid title, subtracts 15 from Seniority"
+          },
+          "Other": {
+            "Pillar": "Seniority",
+            "Label": "Other",
+            "Keywords to Match": "Other",
+            "Score": 0,
+            "Notes": "Not literally matched. This is a catch-all implying anything not matched is scored 0."
+          }
+        }
+      },
+      "Domain": {
+        "weight": "",
+        "description": 70,
+        "components": {
+          "CEO": {
+            "Pillar": "Domain",
+            "Label": "CEO",
+            "Keywords to Match": "Chief Executive Officer, CEO, Founder, Owner",
+            "Score": 100,
+            "Notes": "Top-level leaders converge at 100 for both Seniority and Domain."
+          },
+          "Product": {
+            "Pillar": "Domain",
+            "Label": "Product",
+            "Keywords to Match": "Product, Strategy, Revenue, Retention, CPO, Chief Product Officer",
+            "Score": 95,
+            "Notes": ""
+          },
+          "Ops": {
+            "Pillar": "Domain",
+            "Label": "Ops",
+            "Keywords to Match": "Operations, COO, Chief Operating Officer",
+            "Score": 80,
+            "Notes": ""
+          },
+          "Dev": {
+            "Pillar": "Domain",
+            "Label": "Dev",
+            "Keywords to Match": "Development, CTO, Chief Technology Officer",
+            "Score": 75,
+            "Notes": "NEW (2025-07-28)"
+          },
+          "Pub": {
+            "Pillar": "Domain",
+            "Label": "Pub",
+            "Keywords to Match": "Publishing",
+            "Score": 70,
+            "Notes": ""
+          },
+          "Prod": {
+            "Pillar": "Domain",
+            "Label": "Prod",
+            "Keywords to Match": "Production",
+            "Score": 70,
+            "Notes": ""
+          },
+          "Corp": {
+            "Pillar": "Domain",
+            "Label": "Corp",
+            "Keywords to Match": "Corporate, External Development, CFO, Chief Financial Officer",
+            "Score": 60,
+            "Notes": ""
+          },
+          "Growth": {
+            "Pillar": "Domain",
+            "Label": "Growth",
+            "Keywords to Match": "Growth, Marketing, UA, CMO, Chief Marketing Officer, Product Marketing",
+            "Score": 30,
+            "Notes": ""
+          },
+          "Biz Dev": {
+            "Pillar": "Domain",
+            "Label": "Biz Dev",
+            "Keywords to Match": "Business Development, Biz Dev, Corporate Development",
+            "Score": 15,
+            "Notes": ""
+          },
+          "Other": {
+            "Pillar": "Domain",
+            "Label": "Other",
+            "Keywords to Match": "Other",
+            "Score": 0,
+            "Notes": ""
+          }
+        }
+      },
+      "Warmth": {
+        "weight": "",
+        "description": 50,
+        "components": {}
+      },
+      "One-Offs": {
+        "weight": null,
+        "description": null,
+        "components": {
+          "Group Owner": {
+            "Pillar": "One-Offs",
+            "Label": "Group Owner",
+            "Keywords to Match": "Head of Studio, Studio Director, Studio Lead, General Manager, GM",
+            "Score": 90,
+            "Notes": "Group leadership directly owns P&L, can make unilateral highering decision \u2013 score very highly."
+          },
+          "EP": {
+            "Pillar": "One-Offs",
+            "Label": "EP",
+            "Keywords to Match": "Executive Producer",
+            "Score": 80,
+            "Notes": "Very close to P&L."
+          },
+          "PO": {
+            "Pillar": "One-Offs",
+            "Label": "PO",
+            "Keywords to Match": "Product Owner, Product Lead",
+            "Score": 70,
+            "Notes": "Extremely close to a specific product, and accountable. Our best internal evangelist."
+          },
+          "Team Lead": {
+            "Pillar": "One-Offs",
+            "Label": "Team Lead",
+            "Keywords to Match": "Team Lead",
+            "Score": 50,
+            "Notes": "Very close to a specific product, thus able to vouch for the need for our services."
+          },
+          "Proj": {
+            "Pillar": "One-Offs",
+            "Label": "Proj",
+            "Keywords to Match": "Project Manager",
+            "Score": 30,
+            "Notes": "Close to a product, less product savvy, but able to vouch for the need for our services."
+          }
+        }
+      }
+    }
+  },
+  "companyDataSources": [
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Company Name",
+      "Source": "SensorTower API",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Company URL",
+      "Source": "LISN",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Country",
+      "Source": "LISN",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "City",
+      "Source": "LISN",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Street",
+      "Source": "LISN",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Dev",
+      "Has": "x",
+      "Data Point": "Count of games",
+      "Source": "SensorTower API",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Makes Games",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "Currently binary. Need games lists from SensorTower, Steam, etc.",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Dev",
+      "Has": "",
+      "Data Point": "Count of games",
+      "Source": "Steam",
+      "Priority": 2,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "Currently binary. Need games lists from SensorTower, Steam, etc.",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Dev",
+      "Has": "",
+      "Data Point": "Count of games",
+      "Source": "Island API (Epic)",
+      "Priority": 3,
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 2,
+      "Notes": "Currently binary. Need games lists from SensorTower, Steam, etc.",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "F2P",
+      "Has": "x",
+      "Data Point": "Count of F2P games (IAP and/or Ads)",
+      "Source": "SensorTower API",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "F2P",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "Currently binary. Need games lists from SensorTower, with IAP and Ads presence flags.",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Mobile",
+      "Has": "x",
+      "Data Point": "Count of mobile games",
+      "Source": "SensorTower API",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Mobile",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "Currently binary. Need games lists from SensorTower.",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Fresh",
+      "Has": "",
+      "Data Point": "Count of games having release date < 3M",
+      "Source": "SensorTower API",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "Currently binary. Need games lists from SensorTower, Steam, etc, with initial release date, early access, etc.",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Alignment",
+      "Component": "Fresh",
+      "Has": "",
+      "Data Point": "Count of games in early access (google)",
+      "Source": "?",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 2,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Revenue",
+      "Has": "x",
+      "Data Point": "Quarterly revenue actuals.",
+      "Source": "SensorTower API",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Rev <30D (ST)",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Revenue",
+      "Has": "",
+      "Data Point": "Quarterly revenue estimate.",
+      "Source": "Clay",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Revenue",
+      "Has": "",
+      "Data Point": "Quarterly revenue estimate.",
+      "Source": "Growjo",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Annual Revenue (Growjo)",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Revenue",
+      "Has": "",
+      "Data Point": "Quarterly revenue estimate.",
+      "Source": "Deep Research (GPT)",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Funding",
+      "Has": "",
+      "Data Point": "Total funding estimate.",
+      "Source": "Clay",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 5,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Funding",
+      "Has": "",
+      "Data Point": "Total funding estimate.",
+      "Source": "Crunchbase",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Funding",
+      "Has": "x",
+      "Data Point": "Total funding estimate.",
+      "Source": "Growjo",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Total Funding Amount",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Headcount",
+      "Has": "x",
+      "Data Point": "Current total employees.",
+      "Source": "Growjo",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Current Employee Count",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Budget",
+      "Component": "Headcount",
+      "Has": "",
+      "Data Point": "Current total employees.",
+      "Source": "Linkedin",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "Status",
+      "Has": "x",
+      "Data Point": "Sales funnel status.",
+      "Source": "Close (JSON export)",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Close Status",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 6
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "Status",
+      "Has": "x",
+      "Data Point": "Sales funnel status change date.",
+      "Source": "Close (JSON export)",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Status Change Dt",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 6
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "Volatility",
+      "Has": "x",
+      "Data Point": "",
+      "Source": "",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "  - Revenue \u2206",
+      "Has": "x",
+      "Data Point": "QoQ Revenue\u2206 estimate.",
+      "Source": "SensorTower",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Rev Change % (ST)",
+      "API": "x",
+      "Mobile": "x",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "  - Runway \u2206",
+      "Has": "x",
+      "Data Point": "Latest funding amount.",
+      "Source": "Crunchbase",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Latest Funding Amount",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "  - Runway \u2206",
+      "Has": "x",
+      "Data Point": "Latest funding date.",
+      "Source": "Crunchbase",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Latest Funding Date",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "  - Headcount \u2206",
+      "Has": "x",
+      "Data Point": "QoQ Headcount\u2206 estimate.",
+      "Source": "Growjo",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": 5
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "Hiring",
+      "Has": "",
+      "Data Point": "Job listing, title, description, company.",
+      "Source": "Job board scrapes",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "Employee Change %",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Demand",
+      "Component": "Hiring",
+      "Has": "",
+      "Data Point": "Job listing date.",
+      "Source": "",
+      "Priority": "",
+      "Excl": "",
+      "Details": "",
+      "Staging Field Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    }
+  ],
+  "peopleDataSources": [
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "First Name",
+      "Source": "Agg Tool (Sheet) v1",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Last Name",
+      "Source": "Agg Tool (Sheet) v1",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 4,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Job Title",
+      "Source": "Agg Tool (Sheet) v1",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "Title",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "",
+      "Component": "",
+      "Has": "",
+      "Data Point": "Company",
+      "Source": "Agg Tool (Sheet) v1",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "Company",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": 3,
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Warmth",
+      "Component": "Engaged",
+      "Has": "",
+      "Data Point": "Whether they've engaged with outreach/email.",
+      "Source": "Close CRM",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Warmth",
+      "Component": "Engaged",
+      "Has": "",
+      "Data Point": "The date when they last engaged.",
+      "Source": "Close CRM",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Warmth",
+      "Component": "Response",
+      "Has": "",
+      "Data Point": "Whether they've engaged with content.",
+      "Source": "LISN Scrape (PB)",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    },
+    {
+      "Pillar": "Warmth",
+      "Component": "Response",
+      "Has": "",
+      "Data Point": "The date when they last engaged.",
+      "Source": "LISN Scrape (PB)",
+      "Priority": 1,
+      "Excl": "",
+      "Details": "",
+      "Staging Name": "",
+      "API": "",
+      "Mobile": "",
+      "Data Quality": "",
+      "Notes": "",
+      "Last Pull Dt": "",
+      "Added Version": ""
+    }
+  ]
+}
