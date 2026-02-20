@@ -27,7 +27,7 @@ def main():
     """Score GDC San Francisco '26 attendees."""
 
     # --- CONFIGURE THESE 4 THINGS PER CONFERENCE ---
-    input_file = _REPO_ROOT / 'sources' / "v2 GDC San Francisco '26 - People Scores - Accum Output.tsv"
+    input_file = _REPO_ROOT / 'sources' / "v3_GDC_SF_26_Combined_MTM_LISN_2026-02-20.tsv"
     companies_file = _REPO_ROOT / 'store' / 'companies.csv'
     current_date = datetime.now().strftime('%Y-%m-%d')
     output_file = _REPO_ROOT / 'output' / f'GDC_SAN_FRANCISCO_26_Scored_People_{current_date}.tsv'
