@@ -61,12 +61,14 @@ engine/          Core scoring logic (stateless, importable)
   config.py      Load scoring config from JSON / Google Sheets
   master.py      Build master people list from all scored files
   velocity.py    Conference signal velocity tracking (iteration-over-iteration metrics)
+  notes.py       DK notes persistence — carry Katz's annotations across scoring iterations
 
 store/           Canonical entity data (committed to git)
   companies.csv  11K+ scored companies
   people.csv     8K+ scored people (master list)
   baselines/     Normalization ranges for absolute scoring
   velocity/      Per-conference velocity logs (JSON, auto-generated)
+  notes/         Per-conference DK annotation snapshots (CSV, git-backed)
 
 scorers/         Per-conference scoring scripts
   TEMPLATE.py    Copy this for new conferences
