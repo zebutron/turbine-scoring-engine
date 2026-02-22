@@ -1,8 +1,15 @@
 """
 GDC San Francisco '26 — Conference People Scorer
 
-Working example of a conference scorer. Copy TEMPLATE.py for new conferences.
-Reads attendee input, scores against company store, outputs prioritized lead list.
+Reads from the accumulated attendee list (sources/accum/gdc_sf_26_accum.tsv),
+scores against company store, outputs prioritized lead list.
+
+Workflow:
+    1. Human provides source files (LISN export, MTM scrape) into sources/
+    2. Run: python -m engine.accumulate to add them to the accum
+       (or they're added programmatically)
+    3. Run: python -m scorers.gdc_sf_26 to score the full accum
+    4. Output lands in output/ as a TSV sorted by Lead Score
 
 Usage:
     python -m scorers.gdc_sf_26
@@ -23,27 +30,38 @@ sys.path.insert(0, str(_REPO_ROOT))
 from engine.people import process_people_scoring, load_config
 
 
-def main():
-    """Score GDC San Francisco '26 attendees."""
+# ===== CONFERENCE CONFIG =====
+CONFERENCE_KEY = "gdc_sf_26"
+VERSION_LABEL = "v3 (accumulated)"  # UPDATE THIS each scoring run
+# =============================
 
-    # --- CONFIGURE THESE 4 THINGS PER CONFERENCE ---
-    input_file = _REPO_ROOT / 'sources' / "v3_GDC_SF_26_Combined_MTM_LISN_2026-02-20.tsv"
+
+def main():
+    """Score GDC San Francisco '26 attendees from accumulated list."""
+
+    # Input: the accumulated attendee list (built by engine.accumulate)
+    input_file = _REPO_ROOT / 'sources' / 'accum' / f'{CONFERENCE_KEY}_accum.tsv'
     companies_file = _REPO_ROOT / 'store' / 'companies.csv'
     current_date = datetime.now().strftime('%Y-%m-%d')
     output_file = _REPO_ROOT / 'output' / f'GDC_SAN_FRANCISCO_26_Scored_People_{current_date}.tsv'
-    # --- END CONFIG ---
+
+    if not input_file.exists():
+        print(f"ERROR: No accumulated input found at {input_file}")
+        print(f"Run accumulation first: add source files, then save the accum.")
+        print(f"See engine/accumulate.py for usage.")
+        sys.exit(1)
 
     print("Processing GDC San Francisco '26 people scoring...")
-    print(f"Input: {input_file}")
+    print(f"Input (accum): {input_file}")
     print(f"Companies: {companies_file}")
     print(f"Output: {output_file}")
 
-    # Read and preprocess the input file
+    # Read the accumulated input
     print("\nPreprocessing input file...")
-    people_df = pd.read_csv(input_file, sep='\t')
+    people_df = pd.read_csv(input_file, sep='\t', dtype=str, keep_default_na=False)
 
-    print(f"Loaded {len(people_df)} people from input file")
-    print(f"Columns in input: {list(people_df.columns)}")
+    print(f"Loaded {len(people_df)} people from accumulated list")
+    print(f"Columns: {list(people_df.columns)}")
 
     # Create staging format with required columns
     staging_df = pd.DataFrame({
@@ -121,9 +139,8 @@ def main():
     # Record velocity tracking
     from engine.velocity import record_iteration, format_velocity_report
 
-    version_label = "v3 (Scrape 3 + LISN)"  # UPDATE THIS each scoring run
-    record_iteration("gdc_sf_26", results_df, version_label)
-    print("\n" + format_velocity_report("gdc_sf_26", format="text"))
+    record_iteration(CONFERENCE_KEY, results_df, VERSION_LABEL)
+    print("\n" + format_velocity_report(CONFERENCE_KEY, format="text"))
 
 
 if __name__ == "__main__":
