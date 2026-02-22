@@ -9,28 +9,47 @@ Lead scoring engine for Turbine Games Consulting. Prioritizes sales targets by s
 
 ## Quick Start: Score a Conference
 
-This is the most common operation. Given an attendee CSV/TSV, produce a prioritized lead list.
+This is the most common operation. The full cycle: human provides source files → accumulate → score → output.
 
 ```bash
-# 1. Place your attendee file in sources/
+# 1. Place your attendee file(s) in sources/
 #    Expected columns: First Name, Last Name, Job Title, Company (or Company Name), Source
 
-# 2. Copy the template scorer
+# 2. Accumulate into the conference's attendee pile:
+python3 -c "
+from engine.accumulate import load_accum, add_source, save_accum
+import pandas as pd
+accum = load_accum('your_conference')
+new = pd.read_csv('sources/your_scrape.tsv', sep='\t', dtype=str, keep_default_na=False)
+accum = add_source(accum, new, source_label='MTM Scrape 1')
+save_accum(accum, 'your_conference')
+"
+#    This deduplicates, merges, and never drops people from prior scrapes.
+
+# 3. Copy the template scorer (first time only)
 cp scorers/TEMPLATE.py scorers/your_conference.py
+#    Edit CONFERENCE_KEY and VERSION_LABEL at the top.
 
-# 3. Edit the 4 config lines at the top:
-#    - input_file: path to your attendee file in sources/
-#    - companies_file: store/companies.csv (usually don't change)
-#    - output_file: where you want the scored output
-#    - Column mapping if your input has different column names
-
-# 4. Run it
+# 4. Run the scorer
 python -m scorers.your_conference
 
 # 5. Results land in output/ as a TSV sorted by Lead Score (high to low)
 ```
 
 See `scorers/gdc_sf_26.py` for a working example.
+
+### Re-ingesting Katz's Annotated Sheet
+
+When Katz exports his annotated Google Sheet (with DK columns), re-ingest it:
+
+```bash
+python3 -c "
+from engine.accumulate import ingest_sheet_export
+ingest_sheet_export('sources/katz_annotated_v3.tsv', 'gdc_sf_26', source_label='Sheet export v3')
+"
+```
+
+This extracts people data and updates the accum. The notes persistence system (`engine/notes.py`) carries DK annotations forward when re-scoring.
 
 ### Signal Velocity Tracking
 
@@ -60,8 +79,12 @@ engine/          Core scoring logic (stateless, importable)
   normalize.py   Name normalization, fuzzy matching, min-max
   config.py      Load scoring config from JSON / Google Sheets
   master.py      Build master people list from all scored files
+  accumulate.py  Source accumulation across scrape iterations (dedup, merge, never drop)
   velocity.py    Conference signal velocity tracking (iteration-over-iteration metrics)
   notes.py       DK notes persistence — carry Katz's annotations across scoring iterations
+
+sources/         Input data (gitignored — ephemeral I/O)
+  accum/         Accumulated attendee lists per conference (the scorer's input)
 
 store/           Canonical entity data (committed to git)
   companies.csv  11K+ scored companies

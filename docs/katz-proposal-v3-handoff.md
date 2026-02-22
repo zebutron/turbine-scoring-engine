@@ -1,11 +1,13 @@
-# GDC SF v3 Scoring Results + Proposed Workflow
-*Feb 20, 2026 — For Katz review*
+# GDC SF v3 Scoring Results + Workflow
+*Feb 22, 2026 — For Katz review*
 
 ---
 
 ## What We Just Did (v3)
 
-Ran scoring iteration #3 for GDC San Francisco '26. Combined your latest MTM Scrape 3 with the existing LISN data, deduplicated, and scored against the full company store (11K+ companies).
+Ran scoring iteration #3 for GDC San Francisco '26. Accumulated all prior scrapes (LISN v1, MTM Scrapes 1-3) into a single deduplicated attendee list, then scored against the full company store (11K+ companies).
+
+**Corrected from earlier run:** The initial v3 combine dropped ~370 people from prior MTM scrapes. That's fixed — the accumulated list now includes everyone from all sources across all iterations.
 
 ## Signal Velocity: v1 → v2 → v3
 
@@ -13,29 +15,68 @@ Ran scoring iteration #3 for GDC San Francisco '26. Combined your latest MTM Scr
 |---------|--------|---------|---------|-----------|------------|----------|
 | v1 (LISN + MTM Scrape 1) | 1,835 | 350 | 19.1% | — | — | — |
 | v2 (LISN + MTM Scrapes 1-2) | 2,263 | 413 | 18.2% | — | — | +428 |
-| **v3 (Scrape 3 + LISN)** | **2,452** | **495** | **20.2%** | **8.4** | **19** | **+189** |
+| **v3 (LISN + MTM Scrapes 1-3)** | **2,824** | **524** | **18.6%** | **8.9** | **20** | **+561** |
 
 **Key takeaways:**
-- MTM list grew substantially: 348 → 777 → **1,067** people from MTM across 3 scrapes
-- Company match rate improved from 18.2% → **20.2%** (82 new matches)
-- 19 high-priority leads (Lead Score ≥40) identified
-- 2 people scored 60+ (Douglas Hare @ Outplay, Saikat Mondal @ Nazara)
+- 561 net new people from MTM Scrape 3 (after dedup against prior scrapes)
+- 524 people matched to scored companies (18.6%)
+- 20 high-priority leads (Lead Score ≥40) identified
+- 2 people scored 60+ (top targets for manual review)
 
 ## v3 Lead Score Distribution
 
-- 🔴 Top priority (≥60): **2** — manual review, high-value targets
-- 🟠 High priority (40-59): **17** — worth personal outreach
-- 🟡 Worth contacting (20-39): **475** — template DMs / connection requests
-- ⚪ Low priority (10-19): **399** — contact if easy
-- ⬜ Noise (<10): **1,559** — skip unless something changes
+- Top priority (60+): **2** — manual review, high-value targets
+- High priority (40-59): **18** — worth personal outreach
+- Worth contacting (20-39): **609** — template DMs / connection requests
+- Low priority (10-19): **502** — contact if easy
+- Noise (<10): **1,693** — skip unless something changes
 
-## Where the Output Lives Right Now
+## Where the Output Lives
 
-The scored TSV is in the GitHub repo: `output/GDC_SAN_FRANCISCO_26_Scored_People_2026-02-20.tsv`
+The scored TSV is in the GitHub repo: `output/GDC_SAN_FRANCISCO_26_Scored_People_2026-02-21.tsv`
 
 **Columns:** First Name, Last Name, Full Name, Job Title, Company Name, Lead Score, Contact Score, Company Score, Seniority, Domain, Warmth, Matched Company, Match Confidence, Source, Date Created, Date Updated, Extra Data
 
 Sorted by Lead Score descending — top targets first.
+
+---
+
+## How the Workflow Works Now
+
+Here's the honest picture of what's automated vs. what's manual.
+
+### What you do (manual):
+1. **Scrape MTM** — Log into Meet-to-Match, browse attendees, export/copy data. This is the part that requires a human navigating the MTM website. You decide the scrape cadence (weekly, bi-weekly, etc.).
+2. **Export LISN** — LinkedIn Sales Nav searches + Evaboot/PhantomBuster export. Also manual.
+3. **Drop source files** into the `sources/` folder in the repo as TSV/CSV.
+4. **Annotate in Google Sheets** — After scored output is uploaded, you add your DK columns (title flags, scores, notes, BD status). This is your working surface.
+5. **Export your annotated Sheet** when you want notes carried into the next iteration (File → Download → TSV). Drop it in `sources/`.
+
+### What the engine does (automated):
+1. **Accumulate** — Takes any new source files and merges them with the existing attendee list. Deduplicates by name + company. Never drops people from prior scrapes. Tracks which scrapes each person appeared in.
+2. **Score** — Scores all accumulated people against the company store. Seniority, Domain, Warmth → Contact Score. Budget, Alignment, Demand → Company Score. Lead Score = Contact % × Company.
+3. **Carry notes forward** — When you export your annotated Sheet and re-ingest it, the engine matches people by name + company and carries your DK columns into the new scored output.
+4. **Track velocity** — Each scoring iteration records: total people, company matches, match rate, lead score distribution, and delta vs. prior iteration. Produces a velocity report automatically.
+5. **Output** — Sorted TSV ready to upload to Google Sheets.
+
+### The v4 workflow (one cycle):
+```
+You scrape MTM / LISN → drop files in sources/
+  ↓
+Run accumulate (adds new people to the pile, updates existing)
+  ↓
+Run scorer (scores all accumulated people)
+  ↓
+Export your annotated v3 Sheet → re-ingest (carries notes forward)
+  ↓
+Output: v4 scored TSV with your v3 notes pre-filled
+  ↓
+Upload to Google Sheets → annotate → repeat for v5
+```
+
+### What's NOT automated yet:
+- **Scraping itself.** MTM browsing, LISN exports — still manual. We can assess automating the MTM scrape (the SOP doc describes the process), but that's a separate effort.
+- **Google Sheets upload/download.** Currently you download TSV from the repo and import it. Setting up the Sheets API would make this automatic, but it's not wired up yet.
 
 ---
 
@@ -51,9 +92,9 @@ Looked at the current GDC sheet. Here's what I found:
 
 **What's now built:**
 
-The scoring engine has a notes persistence system (`engine/notes.py`) that:
+The scoring engine has a notes persistence system that:
 
-1. **Matches people across iterations** by Full Name + Company Name (same dedup logic the scoring engine uses)
+1. **Matches people across iterations** by Full Name + Company Name (same dedup logic the engine uses)
 2. **Carries forward all 4 DK columns** automatically:
    - `DK: title too low (1) or too high (0)` — your scoring feedback
    - `DK Score (0-2)` — your manual quality rating
@@ -67,45 +108,12 @@ The scoring engine has a notes persistence system (`engine/notes.py`) that:
 
 ---
 
-## Proposed Workflow Going Forward
-
-### What stays the same for Katz:
-1. **Google Sheet as your working surface.** You steer BD from the scored people tab — filter, sort, take notes, flag scoring issues. That doesn't change.
-2. **Your DK columns stay in the same position.** Title flag, DK Score, DK notes, DK status — same columns, same workflow.
-3. **Velocity reports with each iteration.** Each time we score, you get: new people count, total list, new company matches, lead score distribution.
-4. **You decide when to score.** Scrape schedule stays on your cadence.
-
-### What changes (improvements):
-1. **Notes persist automatically.** When a new scoring iteration uploads, your DK annotations from the prior version merge in. No manual copying.
-2. **Notes are backed up.** Every iteration's annotations are saved to git. Even if the Sheet breaks, your notes are safe.
-3. **Scoring feedback loops back.** When you flag a title as "too low" or note "not a game studio", we can extract those flags and use them to improve the scoring engine.
-4. **Velocity tracking is automated.** The scoring engine records iteration stats and produces a velocity report automatically.
-5. **Scoring runs faster.** Source prep + scoring + notes merge + summary in one command.
-
-### How scored data gets to your Sheet:
-
-**For v3 right now:** The scored output is a TSV. To get it into Google Sheets:
-- Open the GDC Scored People sheet
-- Add a new tab: "v3 Scored People - GDC"
-- File → Import → Upload the TSV → Import into current sheet (select the new tab)
-- The DK columns are already included (empty for v3 since it's the first automated run)
-
-**Starting with v4 (next iteration):**
-1. You annotate v3 in the Sheet (business as usual)
-2. When v4 scoring runs, the engine pulls your v3 notes from the Sheet (or from a quick CSV export you do)
-3. v4 scored output includes your v3 DK columns pre-filled for returning people
-4. Upload v4 tab — your notes are already there
-
-**Short-term (next week):** Set up Google Sheets API so this is fully automated: score → merge notes → publish new tab. One command, no manual import/export.
-
----
-
 ## What I Need From You
 
-1. **Review the top 19 high-scoring leads** (40+) — do the scores make sense? Any obvious mis-scores? This calibration input directly improves the engine.
+1. **Review the top 20 high-scoring leads** (40+) — do the scores make sense? Any obvious mis-scores? This calibration input directly improves the engine.
 2. **Confirm the DK column layout works** — same 4 columns (title flag, score, notes, status). Want any changes? Additional columns?
 3. **Try the v3 import** — upload the TSV to a new "v3 Scored People - GDC" tab. Start annotating. This becomes the baseline that carries forward to v4.
-4. **Google Sheets API access** (when ready) — I'll need you or Zeb to create a Google Cloud service account and share the sheet with it. 15 min setup, then the full loop (score → merge notes → publish tab) is automatic.
+4. **When v4 scraping is done:** Drop your new MTM/LISN source files in the repo. The engine accumulates, scores, and carries your notes forward. One command.
 
 ---
 
@@ -113,9 +121,9 @@ The scoring engine has a notes persistence system (`engine/notes.py`) that:
 
 | Date | What |
 |------|------|
-| ~~Feb 20~~ | v3 scored ✅ |
+| ~~Feb 20~~ | v3 scored (2,824 people) |
 | Feb 25 | GDC Scrape #4 → v4 scoring (with v3 notes carried forward) |
 | Mar 4 | GDC Scrape #5 → v5 scoring + conference brief |
 | Mar 17-21 | **GDC San Francisco** |
 
-Each scoring run will produce a velocity report, carry forward your notes, and output a ready-to-import TSV. Once Sheets API is set up, it'll auto-publish.
+Each scoring run produces a velocity report, carries forward your notes, and outputs a ready-to-import TSV.
